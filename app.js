@@ -1,7 +1,6 @@
 console.log("Here we go!");
 var body = document.body;
 var screen = 0;
-console.log(screen);
 var correct = 0;
 var incorrect = 0;
 var clock = document.getElementById("clock");
@@ -65,6 +64,9 @@ startDir.setAttribute(
 // style the start button
 startButton.setAttribute("style", "font-size:18px; color: black");
 
+// listen for click on the BEGIN button
+startButton.addEventListener("click", monkeyFunk);
+
 startButton.addEventListener("click", function () {
   var timerInterval = setInterval(function () {
     secondsLeft--;
@@ -95,8 +97,6 @@ function timesUp() {
   right.textContent = "correct: " + correct;
   wrong.textContent = "incorrect: " + incorrect;
 }
-// listen for click on the BEGIN button
-startButton.addEventListener("click", monkeyFunk);
 
 // question objects attached to the screen variable as the code iterates
 var question1 = {
@@ -159,95 +159,93 @@ function monkeyFunk() {
     opt2.textContent = questionPool[screen].b;
     opt3.textContent = questionPool[screen].c;
     opt4.textContent = questionPool[screen].d;
+
     // if not the first round, replace text in the elements with questionPool
   } else if (screen < questionPool.length) {
-    console.log("else if " + screen);
-
     questionText.textContent = questionPool[screen].question;
     opt1.textContent = questionPool[screen].a;
     opt2.textContent = questionPool[screen].b;
     opt3.textContent = questionPool[screen].c;
     opt4.textContent = questionPool[screen].d;
   }
-  //    else {
-  //     console.log(stats);
-  //     return;
-  //   }
-
-  console.log(screen);
-
-  // style the card that holds the questions and answers
-  card.setAttribute(
-    "style",
-    "display: flex; flex-direction: column; justify-content: flex-start; max-width: 25%"
-  );
-  console.log(stats);
-
-  //   event listeners for each button. They have if statements attached. If text in the button you press matches text in the questionpool object "answer", the answer is correct, add 1 to the correct var, the screen variable, local storage, and restart monkeyFUNK. If the text doesnt match, do the opposite and restart MF.
-  opt1.addEventListener("click", function () {
-    if (opt1.textContent === questionPool[screen].answer) {
-      correct++;
-      screen++;
-      localStorage.setItem("correct", correct);
-      monkeyFunk();
-    } else {
-      incorrect++;
-      screen++;
-      localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
-    }
-  });
-
-  opt2.addEventListener("click", function () {
-    if (opt2.textContent === questionPool[screen].answer) {
-      correct++;
-      screen++;
-      localStorage.setItem("correct", correct);
-      monkeyFunk();
-    } else {
-      incorrect++;
-      screen++;
-      localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
-    }
-  });
-
-  opt3.addEventListener("click", function () {
-    if (opt3.textContent === questionPool[screen].answer) {
-      console.log(screen);
-      correct++;
-      console.log(screen);
-      screen++;
-      console.log(screen);
-      localStorage.setItem("correct", correct);
-      console.log(screen);
-      monkeyFunk();
-    } else {
-      console.log(screen);
-      incorrect++;
-      console.log(screen);
-      screen++;
-      console.log(screen);
-      localStorage.setItem("incorrect", incorrect);
-      console.log(screen);
-      monkeyFunk();
-    }
-  });
-
-  opt4.addEventListener("click", function () {
-    if (opt4.textContent === questionPool[screen].answer) {
-      correct++;
-      screen++;
-      localStorage.setItem("correct", correct);
-      monkeyFunk();
-    } else {
-      incorrect++;
-      screen++;
-      localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
-    }
-  });
 }
+//     console.log(stats);
+//     return;
+//   }
+
+console.log(screen);
+
+// style the card that holds the questions and answers
+card.setAttribute(
+  "style",
+  "display: flex; flex-direction: column; justify-content: flex-start; max-width: 25%"
+);
+console.log(stats);
+
+//   event listeners for each button. They have if statements attached. If text in the button you press matches text in the questionpool object "answer", the answer is correct, add 1 to the correct var, the screen variable, local storage, and restart monkeyFUNK. If the text doesnt match, do the opposite and restart MF.
+opt1.addEventListener("click", function () {
+  if (opt1.textContent === questionPool[screen].answer) {
+    correct++;
+    screen++;
+    localStorage.setItem("correct", correct);
+    monkeyFunk();
+  } else {
+    incorrect++;
+    screen++;
+    localStorage.setItem("incorrect", incorrect);
+    monkeyFunk();
+  }
+});
+
+opt2.addEventListener("click", function () {
+  if (opt2.textContent === questionPool[screen].answer) {
+    correct++;
+    screen++;
+    localStorage.setItem("correct", correct);
+    monkeyFunk();
+  } else {
+    incorrect++;
+    screen++;
+    localStorage.setItem("incorrect", incorrect);
+    monkeyFunk();
+  }
+});
+
+opt3.addEventListener("click", function () {
+  if (opt3.textContent === questionPool[screen].answer) {
+    console.log(screen);
+    correct++;
+    console.log(screen);
+    screen++;
+    console.log(screen);
+    localStorage.setItem("correct", correct);
+    console.log(screen);
+    monkeyFunk();
+  } else {
+    console.log(screen);
+    incorrect++;
+    console.log(screen);
+    screen++;
+    console.log(screen);
+    localStorage.setItem("incorrect", incorrect);
+    console.log(screen);
+    monkeyFunk();
+  }
+});
+
+opt4.addEventListener("click", function () {
+  if (opt4.textContent === questionPool[screen].answer) {
+    correct++;
+    screen++;
+    localStorage.setItem("correct", correct);
+    monkeyFunk();
+  } else {
+    incorrect++;
+    screen++;
+    localStorage.setItem("incorrect", incorrect);
+    monkeyFunk();
+  }
+});
 
 // OLD
 // // function to write the text to the page
