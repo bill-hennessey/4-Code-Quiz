@@ -5,6 +5,7 @@ var correct = 0;
 var incorrect = 0;
 var clock = document.getElementById("clock");
 var secondsLeft = 20;
+var allDone = false;
 
 //  I seem to be having issues with the stats obj. Console.log keeps returning null so I think there could be a datatype issue.
 var stats = {
@@ -82,20 +83,24 @@ startButton.addEventListener("click", function () {
 });
 
 function timesUp() {
-  questionText.remove();
-  opt1.remove();
-  opt2.remove();
-  opt3.remove();
-  opt4.remove();
-  var message = document.createElement("h1");
-  var right = document.createElement("p");
-  var wrong = document.createElement("p");
-  card.appendChild(message);
-  card.appendChild(right);
-  card.appendChild(wrong);
-  message.textContent = "TIME'S UP!";
-  right.textContent = "correct: " + correct;
-  wrong.textContent = "incorrect: " + incorrect;
+  if ((allDone = false)) {
+    questionText.remove();
+    opt1.remove();
+    opt2.remove();
+    opt3.remove();
+    opt4.remove();
+    var message = document.createElement("h1");
+    var right = document.createElement("p");
+    var wrong = document.createElement("p");
+    card.appendChild(message);
+    card.appendChild(right);
+    card.appendChild(wrong);
+    message.textContent = "TIME'S UP!";
+    right.textContent = "correct: " + correct;
+    wrong.textContent = "incorrect: " + incorrect;
+  } else {
+    return;
+  }
 }
 
 // question objects attached to the screen variable as the code iterates
@@ -167,6 +172,27 @@ function monkeyFunk() {
     opt2.textContent = questionPool[screen].b;
     opt3.textContent = questionPool[screen].c;
     opt4.textContent = questionPool[screen].d;
+  } else {
+    //   need a quiz complete screen where you can enter your intials.
+    allDone = true;
+
+    questionText.remove();
+    opt1.remove();
+    opt2.remove();
+    opt3.remove();
+    opt4.remove();
+    var congrats = document.createElement("h1");
+    var right = document.createElement("p");
+    var wrong = document.createElement("p");
+    card.appendChild(congrats);
+    card.appendChild(right);
+    card.appendChild(wrong);
+    congrats.textContent = "Congratulations!";
+    right.textContent = "correct: " + correct;
+    wrong.textContent = "incorrect: " + incorrect;
+    secondsLeft = 0;
+    clock.remove();
+    return;
   }
 }
 //     console.log(stats);
@@ -192,6 +218,7 @@ opt1.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
+    secondsLeft = secondsLeft - 5;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
@@ -206,6 +233,7 @@ opt2.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
+    secondsLeft = secondsLeft - 5;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
@@ -226,6 +254,7 @@ opt3.addEventListener("click", function () {
     incorrect++;
     console.log(screen);
     screen++;
+    secondsLeft = secondsLeft - 5;
     console.log(screen);
     localStorage.setItem("incorrect", incorrect);
     console.log(screen);
@@ -242,6 +271,7 @@ opt4.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
+    secondsLeft = secondsLeft - 5;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
