@@ -1,3 +1,12 @@
 body {
   background-color: aquamarine;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card {
+  border: 2px solid black;
+  padding: 15px;
+  display: flexbox;
+  margin: auto;
+  width: 50%;
 }

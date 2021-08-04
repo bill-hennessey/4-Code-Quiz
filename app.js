@@ -35,6 +35,7 @@ var directions =
 
 // append them to the DOM or else they wont show up on the page!!
 body.appendChild(startCard);
+card.appendChild(startCard);
 startCard.appendChild(startWelcome);
 startCard.appendChild(startDir);
 startCard.appendChild(startButton);
@@ -184,12 +185,23 @@ function monkeyFunk() {
     var congrats = document.createElement("h1");
     var right = document.createElement("p");
     var wrong = document.createElement("p");
+    var initials = document.createElement("input");
+    var initialsText = document.createElement("p");
+    var initialsSubmit = document.createElement("button");
     card.appendChild(congrats);
     card.appendChild(right);
     card.appendChild(wrong);
+    card.appendChild(initials);
+    card.appendChild(initialsSubmit);
+    card.appendChild(initialsText);
     congrats.textContent = "Congratulations!";
-    right.textContent = "correct: " + correct;
-    wrong.textContent = "incorrect: " + incorrect;
+    right.textContent = "correct:       " + correct;
+    wrong.textContent = "incorrect:     " + incorrect;
+    initialsText.textContent =
+      "Type your initials into the field and click submit";
+    initialsSubmit.textContent = "SUBMIT";
+    initialsSubmit.setAttribute("Style", "width: 100px; margin-top: 10px");
+
     secondsLeft = 0;
     clock.remove();
     return;
