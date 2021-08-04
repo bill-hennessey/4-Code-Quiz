@@ -4,12 +4,19 @@ var screen = 0;
 console.log(screen);
 var correct = 0;
 var incorrect = 0;
-
-//  I seem to be having issues with the stats obj. Console.log keeps returning null so I think there could be a datatype issue.
 var stats = {
-  correct: localStorage.getItem(correct),
-  incorrect: localStorage.getItem(incorrect),
+  correct: localStorage.getItem("correct"),
+  incorrect: localStorage.getItem("incorrect"),
 };
+
+var welcome = "Welcome to the Coding Quiz Challenge.";
+var directions =
+  "Answer the following questions as quickly as you can. But beware, when you click Begin, a timer will start. When you answer a question incorrectly, it will take precious time off the clock. When the clock reaches 0, your challenge is over. Good Luck!";
+
+// Create elements like these... Populate the whole thing with Javascript code.
+// Put the code in a function, the text populated by variables. call the function every time a button is clicked. have the text cleared when the button is pressed and repopulated.
+// var infoEl = document.createElement("div");
+// var imgEl = document.createElement("img");
 
 // create the elements for the start page
 var startCard = document.createElement("div");
@@ -17,22 +24,10 @@ var startWelcome = document.createElement("h1");
 var startDir = document.createElement("h3");
 var startButton = document.createElement("button");
 
-// create the elements for the questions and answers
-var questionText = document.createElement("h1");
-var opt1 = document.createElement("button");
-var opt2 = document.createElement("button");
-var opt3 = document.createElement("button");
-var opt4 = document.createElement("button");
-
-var card = document.getElementById("card");
-
-// Text for the front/into page
-var welcome = "Welcome to the Coding Quiz Challenge.";
-var directions =
-  "Answer the following questions as quickly as you can. But beware, when you click Begin, a timer will start. When you answer a question incorrectly, it will take precious time off the clock. When the clock reaches 0, your challenge is over. Good Luck!";
-
 // append them to the DOM or else they wont show up on the page!!
+
 body.appendChild(startCard);
+
 startCard.appendChild(startWelcome);
 startCard.appendChild(startDir);
 startCard.appendChild(startButton);
@@ -42,31 +37,27 @@ startDir.textContent = directions;
 startWelcome.textContent = welcome;
 startButton.textContent = "Begin";
 
-// style the startcard div
+// style the text and button
 startCard.setAttribute(
   "style",
   "display: flex; flex-direction: column; align-items: center; justify-content: center;"
 );
 
-// style the welcome message text
 startWelcome.setAttribute(
   "style",
   "font-size:25px; text-align:center; color: black"
 );
 
-// Style the directions text
 startDir.setAttribute(
   "style",
   "font-size:18px; text-align:center; color: black"
 );
 
-// style the start button
 startButton.setAttribute("style", "font-size:18px; color: black");
 
-// listen for click on the BEGIN button
-startButton.addEventListener("click", monkeyFunk);
+// startButton.addEventListener("click", clearPage);
+startButton.addEventListener("click", populatePage);
 
-// question objects attached to the screen variable as the code iterates
 var question1 = {
   question: "What is the largest planet in the Solar System?",
   a: "Earth",
@@ -77,7 +68,7 @@ var question1 = {
 };
 
 var question2 = {
-  question: "What is the smallest planet in the Solar System?",
+  quesiton: "What is the smallest planet in the Solar System?",
   a: "Mercury",
   b: "Mars",
   c: "Venus",
@@ -102,67 +93,71 @@ var question4 = {
   d: "Neptune",
   answer: "Neptune",
 };
-// array of quesiton objs
-var questionPool = [question1, question2, question3, question4];
 
-// FUNKtion that checks to see what iteration thru the code we are at (screen), and if at the first round clear out the welcome page code, build the DOM with declared variables and placetext into new elements by referencing the questionpool array obj data. ELSE...
-function monkeyFunk() {
+var questionPool = [question1, question2, question3, question4];
+console.log(questionPool);
+
+// function clearPage() {}
+
+// function to write the text to the page
+function populatePage() {
   event.preventDefault();
+
+  // creates the empty elements
+  var card = document.getElementById("card");
+  var questionText = document.createElement("h1");
+  var opt1 = document.createElement("button");
+  var opt2 = document.createElement("button");
+  var opt3 = document.createElement("button");
+  var opt4 = document.createElement("button");
+
+  // arranges elements on the page
+
+  card.appendChild(questionText);
+  card.appendChild(opt1);
+  card.appendChild(opt2);
+  card.appendChild(opt3);
+  card.appendChild(opt4);
+
   if (screen === 0) {
-    console.log(screen);
     startWelcome.remove();
     startDir.remove();
     startCard.remove();
-    console.log(screen);
-
-    // arranges elements on the page
-    card.appendChild(questionText);
-    card.appendChild(opt1);
-    card.appendChild(opt2);
-    card.appendChild(opt3);
-    card.appendChild(opt4);
-
-    questionText.textContent = questionPool[screen].question;
-    opt1.textContent = questionPool[screen].a;
-    opt2.textContent = questionPool[screen].b;
-    opt3.textContent = questionPool[screen].c;
-    opt4.textContent = questionPool[screen].d;
-    // if not the first round, replace text in the elements with questionPool
-  } else if (screen < questionPool.length) {
-    console.log("else if " + screen);
-
-    questionText.textContent = questionPool[screen].question;
-    opt1.textContent = questionPool[screen].a;
-    opt2.textContent = questionPool[screen].b;
-    opt3.textContent = questionPool[screen].c;
-    opt4.textContent = questionPool[screen].d;
+  } else {
+    questionText.remove();
+    opt1.remove();
+    opt2.remove();
+    opt3.remove();
+    opt4.remove();
   }
-  //    else {
-  //     console.log(stats);
-  //     return;
-  //   }
+  //   add text to the empty elements
 
-  console.log(screen);
+  questionText.textContent = questionPool[screen].question;
+  opt1.textContent = questionPool[screen].a;
+  opt2.textContent = questionPool[screen].b;
+  opt3.textContent = questionPool[screen].c;
+  opt4.textContent = questionPool[screen].d;
 
-  // style the card that holds the questions and answers
+  //   how do i listen for a button clicked and validate whether or not it matches the "answer" in the object?
+
   card.setAttribute(
     "style",
     "display: flex; flex-direction: column; justify-content: flex-start; max-width: 25%"
   );
-  console.log(stats);
 
-  //   event listeners for each button. They have if statements attached. If text in the button you press matches text in the questionpool object "answer", the answer is correct, add 1 to the correct var, the screen variable, local storage, and restart monkeyFUNK. If the text doesnt match, do the opposite and restart MF.
   opt1.addEventListener("click", function () {
     if (opt1.textContent === questionPool[screen].answer) {
       correct++;
       screen++;
       localStorage.setItem("correct", correct);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     } else {
       incorrect++;
       screen++;
       localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     }
   });
 
@@ -171,34 +166,30 @@ function monkeyFunk() {
       correct++;
       screen++;
       localStorage.setItem("correct", correct);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     } else {
       incorrect++;
       screen++;
       localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     }
   });
 
   opt3.addEventListener("click", function () {
     if (opt3.textContent === questionPool[screen].answer) {
-      console.log(screen);
       correct++;
-      console.log(screen);
       screen++;
-      console.log(screen);
       localStorage.setItem("correct", correct);
-      console.log(screen);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     } else {
-      console.log(screen);
       incorrect++;
-      console.log(screen);
       screen++;
-      console.log(screen);
       localStorage.setItem("incorrect", incorrect);
-      console.log(screen);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     }
   });
 
@@ -207,24 +198,17 @@ function monkeyFunk() {
       correct++;
       screen++;
       localStorage.setItem("correct", correct);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     } else {
       incorrect++;
       screen++;
       localStorage.setItem("incorrect", incorrect);
-      monkeyFunk();
+      //   clearPage();
+      populatePage();
     }
   });
 }
-
-// OLD
-// // function to write the text to the page
-// function populatePage() {
-
-//   return stats;
-// }
-
-//   how do i listen for a button clicked and validate whether or not it matches the "answer" in the object?
 
 // populate the function with arrays or objects? or an array of objects?
 // var question1 = {
@@ -259,3 +243,4 @@ function monkeyFunk() {
 //       sendMessage();
 //     }
 //   }, 1000);
+// }
