@@ -4,6 +4,8 @@ var screen = 0;
 console.log(screen);
 var correct = 0;
 var incorrect = 0;
+var clock = document.getElementById("clock");
+var secondsLeft = 20;
 
 //  I seem to be having issues with the stats obj. Console.log keeps returning null so I think there could be a datatype issue.
 var stats = {
@@ -63,6 +65,36 @@ startDir.setAttribute(
 // style the start button
 startButton.setAttribute("style", "font-size:18px; color: black");
 
+startButton.addEventListener("click", function () {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    clock.textContent = secondsLeft;
+
+    if (secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+      timesUp();
+    }
+  }, 1000);
+});
+
+function timesUp() {
+  questionText.remove();
+  opt1.remove();
+  opt2.remove();
+  opt3.remove();
+  opt4.remove();
+  var message = document.createElement("h1");
+  var right = document.createElement("p");
+  var wrong = document.createElement("p");
+  card.appendChild(message);
+  card.appendChild(right);
+  card.appendChild(wrong);
+  message.textContent = "TIME'S UP!";
+  right.textContent = "correct: " + correct;
+  wrong.textContent = "incorrect: " + incorrect;
+}
 // listen for click on the BEGIN button
 startButton.addEventListener("click", monkeyFunk);
 
@@ -225,18 +257,6 @@ function monkeyFunk() {
 // }
 
 //   how do i listen for a button clicked and validate whether or not it matches the "answer" in the object?
-
-// populate the function with arrays or objects? or an array of objects?
-// var question1 = {
-//   question: "What is your name?",
-//   answer1: "Tom",
-//   answer2: "Bob",
-//   answer3: "Ed",
-//   answer4: "Jon",
-//   correct: "Tom",
-// };
-
-// var allQuestions = [question1; ]
 
 // Timer:
 // var timeEl = document.querySelector(".time");
