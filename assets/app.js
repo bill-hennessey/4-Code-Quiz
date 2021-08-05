@@ -28,6 +28,25 @@ var opt4 = document.createElement("button");
 
 var card = document.getElementById("card");
 
+var congrats = document.createElement("h1");
+var right = document.createElement("p");
+var wrong = document.createElement("p");
+var initials = document.createElement("input");
+var initialsText = document.createElement("p");
+var initialsSubmit = document.createElement("button");
+
+var titleHS = document.createElement("h1");
+var name1HS = document.createElement("h2");
+var name2HS = document.createElement("h2");
+var name3HS = document.createElement("h2");
+var name4HS = document.createElement("h2");
+var name5HS = document.createElement("h2");
+
+var pos1 =
+  localStorage.getItem("initials") +
+  localStorage.getItem("correct") +
+  localStorage.getItem("incorrect");
+
 // Text for the front/into page
 var welcome = "Welcome to the Coding Quiz Challenge.";
 var directions =
@@ -75,13 +94,43 @@ startButton.addEventListener("click", function () {
     clock.textContent = secondsLeft;
 
     if (secondsLeft === 0) {
-      // Stops execution of action at set interval
+      // Stops execution of action at setinterval
       clearInterval(timerInterval);
-      // Calls function to create and append image
+      console.log("about to fire");
       timesUp();
+      console.log("fired");
+      console.log(allDone);
     }
   }, 1000);
 });
+
+initialsSubmit.addEventListener("click", function () {
+  var x = initials.value;
+  localStorage.setItem("Initials", x);
+
+  congrats.remove();
+  right.remove();
+  wrong.remove();
+  initialsText.remove();
+  initialsSubmit.remove();
+  initials.remove();
+});
+
+function dispHighScore() {
+  card.appendChild(titleHS);
+  card.appendChild(name1HS);
+  card.appendChild(name2HS);
+  card.appendChild(name3HS);
+  card.appendChild(name4HS);
+  card.appendChild(name5HS);
+
+  titleHS.textContent("High Scores!");
+  name1HS.textContent(pos1);
+  name2HS.textContent(pos2);
+  name3HS.textContent(pos3);
+  name4HS.textContent(pos4);
+  name5HS.textContent(pos5);
+}
 
 function timesUp() {
   if ((allDone = false)) {
@@ -182,12 +231,7 @@ function monkeyFunk() {
     opt2.remove();
     opt3.remove();
     opt4.remove();
-    var congrats = document.createElement("h1");
-    var right = document.createElement("p");
-    var wrong = document.createElement("p");
-    var initials = document.createElement("input");
-    var initialsText = document.createElement("p");
-    var initialsSubmit = document.createElement("button");
+
     card.appendChild(congrats);
     card.appendChild(right);
     card.appendChild(wrong);
@@ -230,7 +274,7 @@ opt1.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
-    secondsLeft = secondsLeft - 5;
+    secondsLeft = secondsLeft - 3;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
@@ -245,7 +289,7 @@ opt2.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
-    secondsLeft = secondsLeft - 5;
+    secondsLeft = secondsLeft - 3;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
@@ -266,7 +310,7 @@ opt3.addEventListener("click", function () {
     incorrect++;
     console.log(screen);
     screen++;
-    secondsLeft = secondsLeft - 5;
+    secondsLeft = secondsLeft - 3;
     console.log(screen);
     localStorage.setItem("incorrect", incorrect);
     console.log(screen);
@@ -283,7 +327,7 @@ opt4.addEventListener("click", function () {
   } else {
     incorrect++;
     screen++;
-    secondsLeft = secondsLeft - 5;
+    secondsLeft = secondsLeft - 3;
     localStorage.setItem("incorrect", incorrect);
     monkeyFunk();
   }
